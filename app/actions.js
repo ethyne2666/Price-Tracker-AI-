@@ -97,7 +97,7 @@ export async function addProduct(formData) {
         
 
     } catch (error) {
-        console.log("Add product error:", error);
+        console.error("Add product error:", error);
         return { error: error.message || "Failed to add product"};
 
     }
@@ -131,3 +131,44 @@ export async function deleteProduct(productId){
 }
 
 
+
+
+// get products for that particular user
+export async function getProducts() {
+    try {
+        const supabase = await createClient();
+        const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+        if (error) throw error;
+        return data || [];
+
+    } catch (error) {
+        console.error("Get products error", error);
+        return [];
+    }
+}
+
+
+
+
+// get price history for particular product
+export async function getPriceHistory(productId){
+    try {
+        const supabase = await createClient();
+        const { data, error } = await supabase
+        .from("price_history")
+        .select("*")
+        .eq("product_id", productId)
+        .order("checked_at", { ascending: true });
+
+        if (error) throw error;
+        return data || [];
+
+    } catch (error) {
+        console.error("Get price history error:", error);
+        return [];
+    }
+}
