@@ -1,11 +1,17 @@
 import AddProductForm from "@/components/AddProductForm";
+import AuthButton from "@/components/AuthButton";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/utils/supabase/server";
 import { TrendingDown, Shield, Bell, Rabbit,LogIn  } from "lucide-react";
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
 
-  const user = null;
+  const supabase = await createClient();
+
+  const {
+    data : {user} ,
+  } = await supabase.auth.getUser();
 
   const products = [];
 
@@ -38,7 +44,7 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <Image src={"/deal-drop-logo.jpg"} alt="Deal drop logo" 
+            <Image src={"/deal-drop-logo.png"} alt="Deal drop logo" 
             width={500}
             height={600}
             className="h-15 w-auto"
@@ -47,10 +53,7 @@ export default function Home() {
           </div>
 
           {/* AUTH BUTTON */}
-          <Button variant="default" size="sm" className="bg-orange-500 hover:bg-orange-600 gap-2"
-          > Sign In 
-          <LogIn  className="w-4 h-4"/>
-          </Button>
+          <AuthButton user={user}/>
 
         </div>
       </header>
