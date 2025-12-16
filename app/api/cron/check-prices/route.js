@@ -38,7 +38,7 @@ export async function POST(request) {
             total: products.length,
             updated: 0,
             failed: 0,
-            pricesChanges: 0,
+            priceChanges: 0,
             alertsSent: 0,
         };
 
