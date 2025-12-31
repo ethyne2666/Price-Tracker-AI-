@@ -26,7 +26,7 @@ export default function Footer() {
             About
           </h3>
           <ul className="space-y-2 font-semibold text-gray-700">
-            <li>Name: Charan Kumar</li>
+            <li>Name: Charan Kumar and team</li>
             <li>
               Email:{" "}
               <a
